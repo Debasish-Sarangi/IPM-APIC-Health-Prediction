@@ -1,0 +1,102 @@
+<html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Style the top navigation bar */
+h1 {
+
+  float: center;
+  display: block;
+  background-color: #333;
+  color: #f2f2f2;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 50px; 
+  height:50px;
+}
+
+/* Style the content */
+
+
+.review {
+  background-color: #ddd;
+  padding: 10px;
+  height: 300px; /* Should be removed. Only for demonstration */
+  text-align: center;
+  margin:auto
+}
+
+textarea {
+  
+  width: 80%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  width: 20%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  align:center;
+}
+
+
+</style>
+
+<body>
+
+
+   <h1>Please enter below fields for prediction</h1>
+
+<div class = "Prediction">
+  <form action="/predict" method="POST" target="_blank">
+ <input type="datetime-local" name="datetimestamp" placeholder="Enter Date and Timestamp here :" rows="5" cols="10"></input></br></br>
+ <input type="text" name="client_ip" placeholder="Enter client_ip here :" rows="5" cols="10"></input></br></br>
+ <input type="text" name="gateway_ip" placeholder="Enter gateway_ip here :" rows="5" cols="10"></input></br></br>
+ <input type="submit" value="Submit">
+  </form>
+ 
+</div>
+
+
+{% if prediction == "200" %}
+
+	<h5> 200 OK, Successful Connectivity   </h5>
+	<img src="https://i.pinimg.com/originals/4d/97/1f/4d971f3171aed1fe52625c893ebdc5f8.jpg" alt="this slowpoke moves" width=50>
+{% elif prediction == "401" %}
+
+	<h5> 401 , Unsuccessful Connectivity   </h5>
+	<img src = "https://i.pinimg.com/564x/b0/41/75/b04175fd1ffbefdc02d90136c262a6e3.jpg" alt = "this slowpoke moves" width = 50>
+{% elif prediction == "500" %}
+
+	<h5> 500 , Unsuccessful Connectivity   </h5>
+	<img src = "https://i.pinimg.com/564x/b0/41/75/b04175fd1ffbefdc02d90136c262a6e3.jpg" alt = "this slowpoke moves" width = 50>
+{% elif prediction == "-1" %}
+
+	<h5> -1 , Incorrect parameters were provided   </h5>
+	<img src = "https://i.pinimg.com/564x/b0/41/75/b04175fd1ffbefdc02d90136c262a6e3.jpg" alt = "this slowpoke moves" width = 50>
+{% else %}
+	<h5> Please provide Correct data for prediction   </h5>
+	<br>
+	<br>
+{% endif %}
+
+
+
+</body>
+</html>
