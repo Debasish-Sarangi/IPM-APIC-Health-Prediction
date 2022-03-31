@@ -2,12 +2,8 @@ numpy
 pandas
 fonttools
 seaborn
-tensorflow
 scipy
 plotly
 botocore
-lazypredict
-conda
 scikit-learn
-pandas-profiling[notebook]
 Flask
