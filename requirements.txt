@@ -4,6 +4,5 @@ fonttools
 seaborn
 scipy
 plotly
-botocore
 scikit-learn
 Flask
