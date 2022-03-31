@@ -1,7 +1,7 @@
 requests==2.27.1
 requests-oauthlib==1.3.1
 Hydra-Core
-setuptools=58.0.4
+setuptools
 scikit-learn==0.23.1
 scipy==1.5.4
 gunicorn==20.1.0
