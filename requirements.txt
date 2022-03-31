@@ -3,13 +3,11 @@ pandas
 fonttools
 seaborn
 tensorflow
-scikit-learn
 scipy
 plotly
 botocore
 lazypredict
 conda
-lazypredict==0.2.7
-scikit-learn==0.23
+scikit-learn
 pandas-profiling[notebook]
 Flask
