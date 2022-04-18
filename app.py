@@ -18,6 +18,8 @@ app = Flask(__name__)
 clf = joblib.load('APIPredict.pkl')
 
 from train import MultiColumnLabelEncoder
+
+
 preprocessing_1 = joblib.load('Preprocessing_1.pkl')
 preprocessing_2 = joblib.load('Preprocessing_2.pkl')
 
@@ -91,12 +93,30 @@ def predict():
     return flask.render_template('index.html', prediction=prediction)
 
 
+@app.route('/train', methods=['POST'])
+
+def train():
+    from train import Score
+    from subprocess import call
+    call(["python", "train.py"])
+   
+    Accuracy=Score.Score()
+    return flask.render_template('index.html', Accuracy=Accuracy)
+
+@app.route('/graph', methods=['POST'])
+
+def graph():
+    return flask.render_template('graph.html')
+    
+
+
 if __name__ == '__main__':
     # clf = joblib.load('quora_model.pkl')
     # count_vect = joblib.load('quora_vectorizer.pkl')
 
     app.run(debug=False)
-    from train import MultiColumnLabelEncoder
+   # from train import MultiColumnLabelEncoder
+   # from train import Score
 
     # app.run(host='localhost', port=8081)
 
