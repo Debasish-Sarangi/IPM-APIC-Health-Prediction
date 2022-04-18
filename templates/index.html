@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -9,16 +10,13 @@ body {
 }
 
 /* Style the top navigation bar */
-h1 {
+h4 {
 
   float: center;
   display: block;
-  background-color: #333;
+  background-color: #6600ff;
   color: #f2f2f2;
-  text-align: center;
-  vertical-align: middle;
-  line-height: 50px; 
-  height:50px;
+ 
 }
 
 /* Style the content */
@@ -27,14 +25,14 @@ h1 {
 .review {
   background-color: #ddd;
   padding: 10px;
-  height: 300px; /* Should be removed. Only for demonstration */
+
   text-align: center;
   margin:auto
 }
 
 textarea {
   
-  width: 80%;
+  
   padding: 12px 20px;
   margin: 8px 0;
   display: inline-block;
@@ -44,7 +42,7 @@ textarea {
 }
 
 input[type=submit] {
-  width: 20%;
+  
   background-color: #4CAF50;
   color: white;
   padding: 14px 20px;
@@ -58,23 +56,21 @@ input[type=submit] {
 
 </style>
 
-<body>
+<body >
+
+<div class="container">
+  <div class="row ">
 
 
-   <h1>Please enter below fields for prediction</h1>
-
-<div class = "Prediction">
+<div class = "Prediction"  class="col-xs-3">
+   <h4>Please enter below fields for prediction : </h4>
   <form action="/predict" method="POST" target="_blank">
  <input type="datetime-local" name="datetimestamp" placeholder="Enter Date and Timestamp here :" rows="5" cols="10"></input></br></br>
  <input type="text" name="client_ip" placeholder="Enter client_ip here :" rows="5" cols="10"></input></br></br>
  <input type="text" name="gateway_ip" placeholder="Enter gateway_ip here :" rows="5" cols="10"></input></br></br>
  <input type="submit" value="Submit">
   </form>
- 
-</div>
-
-
-{% if prediction == "200" %}
+ {% if prediction == "200" %}
 
 	<h5> 200 OK, Successful Connectivity   </h5>
 	<img src="https://i.pinimg.com/originals/4d/97/1f/4d971f3171aed1fe52625c893ebdc5f8.jpg" alt="this slowpoke moves" width=50>
@@ -91,11 +87,43 @@ input[type=submit] {
 	<h5> -1 , Incorrect parameters were provided   </h5>
 	<img src = "https://i.pinimg.com/564x/b0/41/75/b04175fd1ffbefdc02d90136c262a6e3.jpg" alt = "this slowpoke moves" width = 50>
 {% else %}
-	<h5> Please provide Correct data for prediction   </h5>
+	{% if prediction %}
+		<h5> Please provide Correct data for prediction   </h5>
+	{% endif %}
 	<br>
 	<br>
 {% endif %}
+</div>
 
+<div  class="col-xs-1">
+<h1>  &nbsp;&nbsp;&nbsp; </h1>
+</div>
+
+
+<div class = "train" class="col-xs-3">
+<h4>To train your Model again : </h4>
+  <form action="/train" method="POST" target="_blank">
+<input type="submit" value="Train your model">
+  </form>
+  {% if Accuracy %}
+ <h5> <a>Accuracy of the model is : {{ Accuracy }} %</a>  </h5>
+ {% endif %}
+</div>
+
+<div  class="col-xs-1">
+<h1>  &nbsp;&nbsp;&nbsp; </h1>
+</div>
+
+<div class = "graph" class="col-xs-3">
+<h4>To open Dashboard :</h4>
+  <form action="/graph" method="POST" target="_blank">
+<input type="submit" value="Dashboard">
+  </form>
+
+</div>
+
+</div>
+</div>
 
 
 </body>
