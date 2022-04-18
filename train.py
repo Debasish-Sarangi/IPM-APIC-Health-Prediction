@@ -106,9 +106,18 @@ pickle.dump(sc, open('Preprocessing_2.pkl', 'wb'))
 from sklearn.ensemble import RandomForestClassifier
 classifier = RandomForestClassifier(n_estimators = 300, random_state = 0)
 classifier.fit(X, y)
-r2_score_clf = classifier.score(X_test, y_test)
+#r2_score_clf = classifier.score(X_test, y_test)
+
+class Score:
+    def Score():
+        r2_score_clf = classifier.score(X_test, y_test)
+        return r2_score_clf*100
+    
+# print(Score.Score())
 
 
 pickle.dump(classifier, open('APIPredict.pkl', 'wb'))
-
-print(r2_score_clf*100,'%')
+#print(r2_score_clf*100,'%')
+from pandas_profiling import ProfileReport
+profile = ProfileReport(OriginalX)
+profile.to_file("templates\graph.html")
