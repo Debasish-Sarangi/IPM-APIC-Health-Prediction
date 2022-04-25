@@ -15,8 +15,24 @@ import pandas as pd
 #import ibm_boto3
 import pickle
 
-df_data_1= pd.read_csv('Final_report.csv')
-df_data_1.drop(['Unnamed: 0'], axis='columns', inplace=True)
+import pymongo
+import pandas as pd
+
+
+client = pymongo.MongoClient("mongodb://admin:Pa11word-1@3.239.40.22/admin") # defaults to port 27017
+
+db = client.dbuser
+collection_name = db.apicdata
+cursor = collection_name.find()
+
+list_cur = list(cursor)
+df_data_1 = pd.DataFrame(list_cur)
+df_data_1.drop(['_id'], axis='columns', inplace=True)
+
+
+
+#df_data_1= pd.read_csv('Final_report.csv')
+#df_data_1.drop(['Unnamed: 0'], axis='columns', inplace=True)
 df_data_1.drop(['latency_info2'], axis='columns', inplace=True)
 df_data_1.drop(['bytes_sent'], axis='columns', inplace=True)
 df_data_1.drop(['rateLimit'], axis='columns', inplace=True)
