@@ -93,15 +93,15 @@ def predict():
     return flask.render_template('index.html', prediction=prediction)
 
 
-#@app.route('/train', methods=['POST'])
+@app.route('/train', methods=['POST'])
 
-#def train():
-#    from train import Score
-#    from subprocess import call
-#    call(["python", "train.py"])
+def train():
+    from train import Score
+    from subprocess import call
+    call(["python", "train.py"])
    
-#    Accuracy=Score.Score()
-#    return flask.render_template('index.html', Accuracy=round(Accuracy,2))
+    Accuracy=Score.Score()
+    return flask.render_template('index.html', Accuracy=round(Accuracy,2))
 
 @app.route('/graph', methods=['POST'])
 
