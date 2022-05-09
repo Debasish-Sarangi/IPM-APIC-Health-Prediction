@@ -1,11 +1,10 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
- 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
 
+<style>
 body{
 	font-family: 'Poppins', sans-serif;
 	font-weight: 300;
@@ -15,6 +14,37 @@ body{
 	background-color: #1f2029;
 	overflow-x: hidden;
 }
+p {
+  color: white;
+  font: 300 4em/150% Impact;
+  text-align: center;}
+
+
+/* loading dots */
+
+.loading:after {
+  content: ' .';
+  animation: dots 1s steps(5, end) infinite;}
+
+@keyframes dots {
+  0%, 20% {
+    color: rgba(0,0,0,0);
+    text-shadow:
+      .25em 0 0 rgba(0,0,0,0),
+      .5em 0 0 rgba(0,0,0,0);}
+  40% {
+    color: white;
+    text-shadow:
+      .25em 0 0 rgba(0,0,0,0),
+      .5em 0 0 rgba(0,0,0,0);}
+  60% {
+    text-shadow:
+      .25em 0 0 white,
+      .5em 0 0 rgba(0,0,0,0);}
+  80%, 100% {
+    text-shadow:
+      .25em 0 0 white,
+      .5em 0 0 white;}}
 a {
 	cursor: pointer;
   transition: all 200ms linear;
@@ -296,17 +326,33 @@ h6 span{
 
 </style>
 
+
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script>
+$(window).load(function(){
+               document.querySelector(".loading").style.visibility = "hidden";
+               document.querySelector(".section").style.visibility = "visible";
+ });
+
+function loading() {
+  document.querySelector(".loading").style.visibility = "visible";
+  document.querySelector(".section").style.visibility = "hidden";
+}
+</script>
+
 	<div class="section">
 		<div class="container">
 			<div class="row full-height justify-content-center">
 				<div class="col-12 text-center align-self-center py-5">
 					<div class="section pb-5 pt-5 pt-sm-2 text-center">
-						<div class="card-3d-wrap mx-auto">
+					<p class="loading">Please wait while the page is loading</p>
+					<div class="card-3d-wrap mx-auto">
 							<div class="card-3d-wrapper">
 								<div class="card-front">
 									<div class="center-wrap">
 										<div class="section text-center">
 											<div class="form-group">
+											
 												   <h4 class="mb-4 pb-3">Please enter below fields for prediction : </h4>
   <form action="/predict" method="POST" >
  <input type="datetime-local" class="btn mt-4 form-style" name="datetimestamp" placeholder="Enter Date and Timestamp here :" rows="5" cols="10"></input></br></br>
@@ -314,9 +360,7 @@ h6 span{
  <input type="text" class="form-style" name="gateway_ip" placeholder="Enter gateway_ip here :" rows="5" cols="10"></input></br></br>
  <input class="btn mt-4" type="submit" value="Submit">
   </form>
-<form action="/graph" method="POST" target="_blank">
-<input class="btn mt-4" type="submit" value="Profile Report">
-</form>
+
  {% if prediction == "200" %}
 
 	<h5 class="mb-4 pb-3"> 200 OK, Successful Connectivity   </h5>
@@ -340,6 +384,30 @@ h6 span{
 	<br>
 	<br>
 {% endif %}
+<div class="row ">
+<div class="col-xs-3">
+<form action="/graph" method="POST" target="_blank">
+<input class="btn mt-4" type="submit" value="Profile Report">
+</form>
+</div>
+<div  class="col-xs-1">
+<h1>  &nbsp; </h1>
+</div>
+
+<div class="col-xs-3">
+<div class = "train form-group">
+  <form action="/train" method="POST" >
+<input class="btn mt-4" type="submit" value="Train Model" onclick="loading();">
+  </form>
+</div>
+
+</div>
+
+</div>
+  {% if Accuracy %}
+ <h5> <a>Accuracy of the model is : {{ Accuracy }} %</a>  </h5>
+ {% endif %}
+
 											</div>	
 
 				      					</div>
