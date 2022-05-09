@@ -129,7 +129,7 @@ class Score:
         r2_score_clf = classifier.score(X_test, y_test)
         return r2_score_clf*100
     
-print('Accuracy of the model is : '+ str(round(Score.Score(),2)) + ' %')
+print('Accuracy of the model is : '+ str(round(Score.Score(),2)) + ' %') 
 
 
 pickle.dump(classifier, open('APIPredict.pkl', 'wb'))
