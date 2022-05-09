@@ -18,8 +18,10 @@ import pickle
 import pymongo
 import pandas as pd
 
-
-client = pymongo.MongoClient("mongodb://admin:Pa11word-1@3.239.40.22/admin") # defaults to port 27017
+with open('MongoDBCredential.txt') as f:
+    MongoDBCredential = f.readlines()
+DecryptedCredential=bytes.fromhex(MongoDBCredential[0]).decode('utf-8')
+client = pymongo.MongoClient(DecryptedCredential) # defaults to port 27017
 
 db = client.dbuser
 collection_name = db.apicdata
