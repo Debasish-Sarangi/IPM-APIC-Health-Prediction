@@ -45,7 +45,7 @@ pipeline {
     stage("Train ML Model"){
       steps{
         echo "this is train model and create  step"
-		sh "sudo ssh -o StrictHostKeyChecking=no ubuntu@44.200.234.46 /bin/bash "
+		sh "ssh ubuntu@44.200.234.46 /bin/bash "
 		sh "cd /home/ubuntu/IPMHP"
 		sh "git branch: ${branchName}, url: ${githubURI}"
         sh "python3 train.py"
