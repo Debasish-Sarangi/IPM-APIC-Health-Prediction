@@ -44,14 +44,14 @@ pipeline {
     stage("Build"){
       steps{
         echo "this is buid step"
-        python train.py
+        python3 train.py
 		
       }
     }
        stage("Run Flask Server") {
       steps {
         echo "this is run flask server"
-        python app.py
+        python3 app.py
         }
       }
     
