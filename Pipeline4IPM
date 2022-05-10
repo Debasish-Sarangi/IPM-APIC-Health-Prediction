@@ -1,0 +1,87 @@
+
+properties([parameters([string(name: 'branchName', defaultValue: 'main', description: 'branch name'),
+choice(name: 'appEnv', choices: ['nonprd', 'prd'], description: 'environment'),
+choice(name: 'regName', choices: ['us-east-1'], description: 'region'),
+string(name: 'imageTag', defaultValue: 'v1', description: 'image tag to push to ECR'),
+string(name: 'githubURI', defaultValue: 'https://github.com/Debasish-Sarangi/IPM-APIC-Health-Prediction.git', description: 'github uri')
+])])
+
+pipeline {
+
+  agent any
+
+  options {
+    disableConcurrentBuilds()
+    //ansiColor("xterm")
+    timestamps()
+  }
+
+  environment {
+    githubURI = "${params.githubURI}"
+    branchName = "${params.branchName}"
+    imageTag = "${params.imageTag}"
+    ecrPwd = getecrPwd("${params.ecrURI}")  
+    awsCred = getawsCred("${params.appEnv}")    
+    ecrRepo = getecrRepo("${params.ecrURI}")
+    // remoteImageTag = getremoteImageTag("${params.imageTag}")
+    // buildTag = getbuildTag("${env.ecrRepo}", "${env.remoteImageTag}")
+  }
+
+  stages {
+
+    stage("code-Checkout") {
+      steps {
+        git branch: "${branchName}", url: "${githubURI}"    
+      }
+    }
+
+    stage("code quality check"){
+      steps{
+        echo "this is code quality checking"
+      }
+    }
+
+    stage("Build"){
+      steps{
+        echo "this is buid step"
+        python train.py
+		
+      }
+    }
+       stage("Run Flask Server") {
+      steps {
+        echo "this is run flask server"
+        python app.py
+        }
+      }
+    }
+  }  
+}
+// def getremoteImageTag(imageTag) {
+//   remoteImageTag = "${imageTag}.${BUILD_NUMBER}"
+//   return remoteImageTag
+// }
+
+// def getbuildTag(ecrRepo, remoteImageTag) {
+//   buildTag = "${ecrRepo}:${remoteImageTag}"
+//   return buildTag
+// }
+
+def getecrPwd(ecrURI) {
+  ecrPwd = sh(returnStdout: true, script: "echo ${ecrURI} | cut -d \'/\' -f1")
+  return ecrPwd
+}
+
+def getecrRepo(ecrURI) {
+  ecrRepo = sh(returnStdout: true, script: "echo ${ecrURI} | cut -d \'/\' -f2| tr -d \'\\n\'")
+  return ecrRepo
+}
+
+def getawsCred(appEnv) {
+  if ("${appEnv}" == 'nonprd') {
+    awsCred = "aws-credentials-nonprd"
+  } else {
+    awsCred = "aws-credentials-prd"
+  }
+  return awsCred
+}
