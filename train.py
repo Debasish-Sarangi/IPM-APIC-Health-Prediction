@@ -138,4 +138,4 @@ pickle.dump(classifier, open('APIPredict.pkl', 'wb'))
 #print(r2_score_clf*100,'%')
 from pandas_profiling import ProfileReport
 profile = ProfileReport(OriginalX)
-profile.to_file("templates\graph.html")
+profile.to_file("templates/graph.html")
