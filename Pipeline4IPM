@@ -38,24 +38,29 @@ pipeline {
     stage("code quality check"){
       steps{
         echo "this is code quality checking"
+		// Need to add code quality check
       }
     }
 
-    stage("Build"){
+    stage("Train ML Model"){
       steps{
-        echo "this is buid step"
-        python3 train.py
+        echo "this is train model and create  step"
+		ssh -i /tmp/MLModeKey.pem ubuntu@44.200.234.46
+		sh "cd /home/ubuntu/IPMHP"
+		sh "git branch: ${branchName}, url: ${githubURI}"
+        sh "python3 train.py"
 		
       }
     }
-       stage("Run Flask Server") {
-      steps {
+    
+	stage("Run Flask Server") {
+      steps{
         echo "this is run flask server"
-        python3 app.py
+         sh "python3 app.py"
+		
         }
       }
-    
-  }  
+    }  
 }
 // def getremoteImageTag(imageTag) {
 //   remoteImageTag = "${imageTag}.${BUILD_NUMBER}"
