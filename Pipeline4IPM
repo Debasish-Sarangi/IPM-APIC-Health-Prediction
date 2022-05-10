@@ -54,7 +54,7 @@ pipeline {
         python app.py
         }
       }
-    }
+    
   }  
 }
 // def getremoteImageTag(imageTag) {
